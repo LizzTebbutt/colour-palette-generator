@@ -1,0 +1,41 @@
+<div
+  class="colour-wheel-container"
+  [style.width.px]="diameter"
+  [style.height.px]="diameter"
+  (click)="colourWheelClick($event)">
+  <div
+    class="colour-wheel"
+    [style.width.px]="diameter"
+    [style.height.px]="diameter"></div>
+
+  <div
+    class="white-overlay"
+    [style.width.px]="diameter"
+    [style.height.px]="diameter"></div>
+
+  <div
+    class="value-overlay"
+    [style.width.px]="diameter"
+    [style.height.px]="diameter"
+    [style.opacity]="calculateValueOverlayOpacity()"></div>
+
+  @for (anchor of colourPalette; track anchor) {
+    <app-pointer
+      [colour]="anchor.colour"
+      [wheelDiameter]="diameter"></app-pointer>
+
+    @for (colour of anchor.relatedColours; track colour) {
+      <app-pointer
+        [colour]="{
+          hue: colourMathsService.getOffsetHue(
+            anchor.colour.hue,
+            colour.hueOffset
+          ),
+          saturation: colour.saturation,
+          value: colour.value,
+        }"
+        [wheelDiameter]="diameter"
+        class="pointer-secondary"></app-pointer>
+    }
+  }
+</div>

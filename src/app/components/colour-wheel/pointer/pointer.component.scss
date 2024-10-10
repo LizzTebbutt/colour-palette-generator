@@ -1,0 +1,15 @@
+div {
+    background: white;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.pointer {
+    border-radius: 100%;
+    border: 2px solid black;
+}
+
+.arm {
+    min-width: 1px;
+    min-height: 1px;
+}

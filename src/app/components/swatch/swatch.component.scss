@@ -1,0 +1,16 @@
+.swatch {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: 10px;
+}
+
+.colour-container, .hex-container {
+    max-width: 100%;
+    padding: 8px 12px 8px 8px;
+    min-width: 0;
+}
+
+.hex-container {
+    text-align: center;
+}

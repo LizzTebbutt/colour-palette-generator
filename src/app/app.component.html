@@ -1,0 +1,59 @@
+<main class="main" [style.background]="generateBackgroundGradient()">
+  <div
+    class="content"
+    [style.border-left]="
+      'solid 10px ' + colourConverterService.hsvToHex(colourPalette[0].colour)
+    "
+    [style.border-right]="
+      'solid 10px ' + colourConverterService.hsvToHex(colourPalette[0].colour)
+    ">
+    <div class="anchor-container">
+      <div>
+        <h1>Colour picker</h1>
+        <p>
+          Click the wheel or modify the first colour to alter the palette as a
+          whole, or add a colour and use the slider to change its relation to
+          the anchor colour.
+        </p>
+        <div class="buttons">
+          <button (click)="addComplementary()">Add colour</button>
+        </div>
+      </div>
+
+      <div>
+        <app-colour-wheel
+          [selectedColour]="selectedColour"
+          [(colourPalette)]="colourPalette"
+          [diameter]="400"></app-colour-wheel>
+      </div>
+    </div>
+    <div class="palette-container">
+      @for (anchor of colourPalette; track anchor) {
+        <app-swatch
+          [colour]="{
+            hue: anchor.colour.hue,
+            saturation: anchor.colour.saturation,
+            value: anchor.colour.value,
+          }">
+          <app-hsv-sliders [(colour)]="anchor.colour"></app-hsv-sliders>
+        </app-swatch>
+        @for (colour of anchor.relatedColours; track colour) {
+          <app-swatch
+            [colour]="{
+              hue: getOffsetHue(anchor.colour, colour.hueOffset),
+              saturation: colour.saturation,
+              value: colour.value,
+            }"
+            [width]="200">
+            <app-relative-colour-sliders
+              [anchorHue]="anchor.colour.hue"
+              [(relativeColour)]="anchor.relatedColours[$index]"
+              [containerWidth]="200"></app-relative-colour-sliders>
+          </app-swatch>
+        }
+      }
+    </div>
+  </div>
+</main>
+
+<router-outlet />

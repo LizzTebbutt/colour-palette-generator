@@ -1,0 +1,27 @@
+@use '../../../styles/gradients' as gradients;
+
+.colour-wheel-container {
+    div {
+        border-radius: 100%;
+        border: 1px solid white;
+        position: absolute;
+    }
+
+    .colour-wheel {
+        @include gradients.hue-gradient-background-radial;
+    }
+
+    .value-overlay {
+        background: black;
+    }
+
+    .white-overlay {
+        background: radial-gradient(white, transparent);
+    }
+
+    .pointer-secondary {
+        opacity: 50%;
+    }
+}
+
+
