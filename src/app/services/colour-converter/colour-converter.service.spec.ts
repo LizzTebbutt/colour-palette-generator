@@ -45,26 +45,6 @@ describe('ColourConverterService', () => {
   });
 
   describe('hsvToRgb', () => {
-    // it('should return the cached colour if it was the last one calculated', () => {
-    //   service.HsvToRgb(ColourConstants.red().hsv);
-
-    //   const result = service.HsvToRgb(ColourConstants.red().hsv);
-
-    //   expect(result).toBe(service.previousConvertedRgbColour);
-    // });
-
-    // it('should not return a cached colour if it was not the last one calculated', () => {
-    //   service.HsvToRgb(ColourConstants.red().hsv);
-
-    //   expect(service.previousConvertedRgbColour).toEqual(
-    //     ColourConstants.red().rgb
-    //   );
-
-    //   const result = service.HsvToRgb(ColourConstants.blue().hsv);
-
-    //   expect(result).toEqual(ColourConstants.blue().rgb);
-    // });
-
     it('should check whether provided colour is out of bounds', () => {
       const colour = ColourConstants.red().hsv;
 

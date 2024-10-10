@@ -8,8 +8,6 @@ import { ColourMathsService } from '../colour-maths/colour-maths.service';
   providedIn: 'root',
 })
 export class ColourConverterService {
-  //previousHsvColour: hsvColour = ColourConstants.red().hsv;
-  //previousConvertedRgbColour: rgbColour = ColourConstants.red().rgb;
   colourMathsService: ColourMathsService;
 
   constructor(colourMathsService: ColourMathsService) {
@@ -17,10 +15,6 @@ export class ColourConverterService {
   }
 
   hsvToRgb(hsvColour: hsvColour): rgbColour {
-    // if (hsvColour == this.previousHsvColour) {
-    //   return this.previousConvertedRgbColour;
-    // }
-
     if (this.colourMathsService.hsvColourIsOutOfBounds(hsvColour)) {
       hsvColour = this.colourMathsService.correctHsvColour(hsvColour);
     }
@@ -41,9 +35,6 @@ export class ColourConverterService {
 
     this.addValueModifier(value, chroma, rgbColour);
     this.scaleRgbColour(rgbColour);
-
-    //this.previousConvertedRgbColour = rgbColour;
-    //this.previousHsvColour = hsvColour;
 
     return rgbColour;
   }

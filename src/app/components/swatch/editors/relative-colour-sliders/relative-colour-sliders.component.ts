@@ -19,7 +19,7 @@ import { ColourMathsService } from '../../../../services/colour-maths/colour-mat
   templateUrl: './relative-colour-sliders.component.html',
   styleUrl: './relative-colour-sliders.component.scss',
 })
-export class RelativeColourSlidersComponent implements AfterViewInit {
+export class RelativeColourSlidersComponent {
   @Input({ required: true }) relativeColour!: relativeColour;
   @Output() relativeColourChange = new EventEmitter<relativeColour>();
   @Input() containerWidth = 0;
@@ -37,11 +37,6 @@ export class RelativeColourSlidersComponent implements AfterViewInit {
   ) {
     this.colourConverterService = colourConverterService;
     this.colourMathsService = colourMathsService;
-  }
-
-  ngAfterViewInit() {
-    console.log('test log!!');
-    console.log(this.relativeHueSlider);
   }
 
   readonly hueMax = ColourConstants.hueMax;
