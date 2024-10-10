@@ -53,5 +53,14 @@ describe('AnchorColour', () => {
 
       expect(result).toEqual(expectedResult);
     });
+
+    it('should return a clone, not a pointer', () => {
+      anchorColour.addComplementaryColour();
+
+      const result = anchorColour.getColourAndRelatives();
+
+      expect(result[0]).toEqual(anchorColour.colour);
+      expect(result[0]).not.toBe(anchorColour.colour);
+    });
   });
 });

@@ -4,7 +4,6 @@ import {
   Input,
   Output,
   ViewChild,
-  AfterViewInit,
 } from '@angular/core';
 import { SliderComponent } from '../../../slider/slider.component';
 import { ColourConstants } from '../../../../classes/colour-constants';

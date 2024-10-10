@@ -22,7 +22,11 @@ export class AnchorColour {
   getColourAndRelatives(): hsvColour[] {
     const colours: hsvColour[] = [];
 
-    colours.push(this.colour);
+    colours.push({
+      hue: this.colour.hue,
+      saturation: this.colour.saturation,
+      value: this.colour.value,
+    });
     this.relatedColours.forEach(relatedColour => {
       const hue =
         (this.colour.hue + relatedColour.hueOffset) % ColourConstants.hueMax;

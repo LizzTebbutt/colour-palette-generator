@@ -66,6 +66,10 @@ export class AppComponent implements OnInit {
       colours.push(...anchor.getColourAndRelatives());
     });
 
+    colours.forEach(colour => {
+      colour.saturation = colour.saturation / 2;
+    });
+
     return this.gradientsService.createLinearGradient(colours, '160deg');
   }
 }
