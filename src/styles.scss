@@ -1,4 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@use './styles/borders' as borders;
+@use './styles/spacing' as spacing;
 
+html {
+  background: repeating-linear-gradient(-45deg, whitesmoke 0px, whitesmoke spacing.$double, silver spacing.$double, silver spacing.$double * 2, whitesmoke spacing.$double * 2);
+}
+
+body { 
+  margin: spacing.$standard;  
+  border: borders.$border-basic;
+  border-radius: borders.$radius-basic;
+  box-sizing: border-box;
+  height: auto;
+  min-height: calc(100vh - spacing.$double);
+
+  display: flex;
+  align-items: stretch;
+}
+
+:root {
+  --sidebar-width: 300px;
+  --sidebar-collapsed-width: 0px;
+}
+
+:root, button {
+  font-family: "Overpass Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+}

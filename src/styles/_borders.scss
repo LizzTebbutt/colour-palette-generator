@@ -1,0 +1,10 @@
+@use './spacing' as spacing;
+
+$width-basic: 5px;
+$width-half: $width-basic / 2;
+$colour-basic: black;
+$radius-basic: spacing.$standard;
+$radius-inner: $radius-basic - $width-basic;
+
+$border-basic: $width-basic solid $colour-basic;
+$border-half-width: $width-half solid $colour-basic;

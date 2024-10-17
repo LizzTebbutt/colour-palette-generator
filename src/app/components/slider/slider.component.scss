@@ -1,4 +1,6 @@
 @use '../../../styles/gradients' as gradients;
+@use '../../../styles/spacing' as spacing;
+@use '../../../styles/borders' as borders;
 
 input[type="range"] {
     @include gradients.hue-gradient-background-linear;
@@ -6,11 +8,11 @@ input[type="range"] {
     -webkit-appearance: none !important;
     appearance: none !important;
     accent-color: transparent;
-    border: 2px solid white;
-    border-radius: 10px;
+    border: borders.$border-half-width;
+    border-radius: spacing.$half;
     width: 100%;
     box-sizing: border-box;
-    height: 20px;
+    height: spacing.$standard;
 }
 
 .offset-hue-background input[type="range"] {

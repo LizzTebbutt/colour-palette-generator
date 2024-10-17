@@ -1,0 +1,128 @@
+@use '../../../styles/borders' as borders;
+@use '../../../styles/spacing' as spacing;
+@use '../../../styles/colours' as colours;
+@use '../../../styles/media-queries' as media;
+
+:host {
+  width: var(--sidebar-collapsed-width);
+  margin-left: -1 * borders.$width-basic;
+  margin-bottom: borders.$width-basic;
+  border-left: borders.$border-basic;
+  border-right: borders.$border-basic;
+  border-width: 0 borders.$width-half 0 borders.$width-half;
+
+  position: absolute;
+
+  @include media.tablet-plus {
+    position: relative;
+  }
+
+  &.is-expanded {
+    border-width: 0 borders.$width-basic 0 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    width: var(--sidebar-width);
+  }
+
+  box-sizing: border-box;
+
+  position: sticky;
+  top: 0;
+
+  background-color: colours.$background-primary;
+
+  border-radius: 0 0 0 borders.$radius-inner;
+
+  box-sizing: border-box;
+
+  transition: width 300ms cubic-bezier(.02,.68,.63,.98);
+}
+
+.sidebar-body-container {
+  overflow-y: auto;
+  height: 100%;
+  padding: spacing.$standard;
+  box-sizing: border-box;
+}
+
+.sidebar-body {
+  width: 100%;
+
+  overflow-x: hidden;
+
+  p {
+    min-width: calc(var(--sidebar-width) - spacing.$double);
+  }
+}
+
+.toggle-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  $size: spacing.$triple;
+  width: $size;
+  height: $size;
+  margin: 0;
+  padding: 0;
+
+  position: absolute;
+  top: spacing.$standard;
+  right: 0px;
+  right: calc($size * -1);
+
+  border: none;
+  border-radius: 0 borders.$radius-basic borders.$radius-basic 0;
+
+  background-color: colours.$outline;
+
+  cursor: pointer;
+
+  box-sizing: content-box;
+
+  &:hover {
+    .mat-icon {
+      animation: grow-shrink-wiggle 3s linear infinite;
+
+      @keyframes grow-shrink-wiggle {
+        0% {
+          transform: rotate(0) scale(1);
+        }
+        20% {
+          transform: scale(1.2);
+        }
+        40% {
+          transform: scale(1);
+        }
+        60% {
+          transform: scale(1.2);
+        }
+        80% {
+          transform: scale(1);
+        }
+        85% {
+          transform: rotate(-30deg);
+        }
+        90% {
+          transform: rotate(30deg);
+        }
+        95% {
+          transform: rotate(-30deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  mat-icon {
+    font-size: 1.5em;
+
+    width: fit-content;
+    height: fit-content;
+
+    color: colours.$background-primary;
+  }
+}

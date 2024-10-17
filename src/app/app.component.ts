@@ -11,6 +11,8 @@ import { ColourMathsService } from './services/colour-maths/colour-maths.service
 import { hsvColour } from './types/hsvColour';
 import { ColourConverterService } from './services/colour-converter/colour-converter.service';
 import { GradientsService } from './services/gradients/gradients.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PaletteComponent } from './components/palette/palette.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,8 @@ import { GradientsService } from './services/gradients/gradients.service';
     SwatchComponent,
     HsvSlidersComponent,
     RelativeColourSlidersComponent,
+    SidebarComponent,
+    PaletteComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

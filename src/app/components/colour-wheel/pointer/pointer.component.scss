@@ -1,12 +1,15 @@
+@use '../../../../styles/borders' as borders;
+@use '../../../../styles/colours' as colours;
+
 div {
-    background: white;
+    background: colours.$background-primary;
     position: absolute;
     box-sizing: border-box;
 }
 
 .pointer {
     border-radius: 100%;
-    border: 2px solid black;
+    border: borders.$border-basic;
 }
 
 .arm {

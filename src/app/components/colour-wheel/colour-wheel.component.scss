@@ -1,27 +1,32 @@
 @use '../../../styles/gradients' as gradients;
+@use '../../../styles/borders' as borders;
+@use '../../../styles/spacing' as spacing;
+@use '../../../styles/colours' as colours;
 
 .colour-wheel-container {
-    div {
-        border-radius: 100%;
-        border: 1px solid white;
-        position: absolute;
-    }
+  margin: spacing.$double;
 
-    .colour-wheel {
-        @include gradients.hue-gradient-background-radial;
-    }
+  div {
+    border-radius: 100%;
+    border: borders.$border-basic;
+    position: absolute;
+  }
 
-    .value-overlay {
-        background: black;
-    }
+  .colour-wheel {
+    @include gradients.hue-gradient-background-radial;
+  }
 
-    .white-overlay {
-        background: radial-gradient(white, transparent);
-    }
+  .value-overlay {
+    background: colours.$outline;
+  }
 
-    .pointer-secondary {
-        opacity: 50%;
-    }
+  .white-overlay {
+    background: radial-gradient(white, transparent);
+  }
+
+  .pointer-secondary {
+    opacity: 50%;
+  }
 }
 
 
