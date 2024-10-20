@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
     new AnchorColour(ColourConstants.red().hsv, []),
   ];
   selectedColour = 0;
+
   colourMathsService: ColourMathsService;
   colourConverterService: ColourConverterService;
   gradientsService: GradientsService;
@@ -53,14 +54,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.generateBackgroundGradient();
-  }
-
-  addComplementary(): void {
-    this.colourPalette[this.selectedColour].addComplementaryColour();
-  }
-
-  getOffsetHue(colour: hsvColour, offset: number): number {
-    return this.colourMathsService.getOffsetHue(colour.hue, offset);
   }
 
   generateBackgroundGradient(): string {

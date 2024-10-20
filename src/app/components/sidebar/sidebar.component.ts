@@ -13,7 +13,7 @@ export class SidebarComponent {
   constructor(public sidebarService: SidebarService) {}
 
   @HostBinding('class.is-expanded')
-  get isExpanded() {
+  get isExpanded(): boolean {
     return this.sidebarService.isExpanded;
   }
 }

@@ -5,7 +5,8 @@
 
 :host {
   display: flex;
-  @include media.desktop {
+  flex-direction: column;
+  @include media.tablet-plus {
     flex-direction: row;
   }
 }

@@ -6,15 +6,15 @@ import { Injectable } from '@angular/core';
 export class SidebarService {
   isExpanded = true;
 
-  toggleSidenav() {
+  toggleSidebar() {
     this.isExpanded = !this.isExpanded;
   }
 
-  expandSidenav() {
+  expandSidebar() {
     this.isExpanded = true;
   }
 
-  collapseSidenav() {
+  collapseSidebar() {
     this.isExpanded = false;
   }
 }
