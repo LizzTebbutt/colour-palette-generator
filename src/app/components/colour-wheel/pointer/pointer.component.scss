@@ -2,17 +2,19 @@
 @use '../../../../styles/colours' as colours;
 
 div {
-    background: colours.$background-primary;
-    position: absolute;
-    box-sizing: border-box;
+  background: colours.$background-primary;
+  position: absolute;
+  box-sizing: border-box;
 }
 
 .pointer {
-    border-radius: 100%;
-    border: borders.$border-basic;
+  border-radius: 100%;
+  border: borders.$border-basic;
+
+  cursor: pointer;
 }
 
 .arm {
-    min-width: 1px;
-    min-height: 1px;
+  min-width: 1px;
+  min-height: 1px;
 }

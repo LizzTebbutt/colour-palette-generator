@@ -1,9 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { PointerComponent } from './pointer/pointer.component';
 import { AnchorColour } from '../../classes/anchor-colour/anchor-colour';
 import { ColourConstants } from '../../classes/colour-constants';
 import { ColourMathsService } from '../../services/colour-maths/colour-maths.service';
 import { FormattingConstants } from '../../classes/formatting-constants';
+import { RelativeColour } from '../../types/relativeColour';
+import { ColourWheelService } from '../../services/colour-wheel/colour-wheel.service';
 
 @Component({
   selector: 'app-colour-wheel',
@@ -22,9 +30,57 @@ export class ColourWheelComponent {
   })
   diameter: number = FormattingConstants.defaultWheelDiameter;
   colourMathsService: ColourMathsService;
+  colourWheelService: ColourWheelService;
 
-  constructor(colourMathsService: ColourMathsService) {
+  constructor(
+    colourMathsService: ColourMathsService,
+    colourWheelService: ColourWheelService
+  ) {
     this.colourMathsService = colourMathsService;
+    this.colourWheelService = colourWheelService;
+  }
+
+  @HostListener('window:mousemove', ['$event'])
+  updateColour(event: MouseEvent) {
+    this.colourWheelService.updateColour(event, this.diameter);
+  }
+
+  @HostListener('window:mouseup')
+  stopUpdatingColour() {
+    this.colourWheelService.stopUpdatingColour();
+  }
+
+  colourWheelMousedown(event: MouseEvent) {
+    this.colourWheelService.colourWheelMousedown(
+      event,
+      this.colourPalette[this.selectedColour],
+      this.diameter
+    );
+  }
+
+  pointerMousedown(event: MouseEvent, anchor: AnchorColour) {
+    this.updateSelectedColour(anchor);
+
+    this.colourWheelService.anchorPointerMousedown(
+      event,
+      anchor,
+      this.diameter
+    );
+  }
+
+  secondaryPointerMousedown(
+    event: MouseEvent,
+    anchor: AnchorColour,
+    relativeColour: RelativeColour
+  ) {
+    this.updateSelectedColour(anchor);
+
+    this.colourWheelService.relativePointerMousedown(
+      event,
+      anchor,
+      relativeColour,
+      this.diameter
+    );
   }
 
   calculateValueOverlayOpacity(): number {
@@ -35,43 +91,9 @@ export class ColourWheelComponent {
     return this.colourMathsService.clamp(opacity, 0, 1);
   }
 
-  colourWheelClick(event: MouseEvent) {
-    const div = event.target as HTMLDivElement;
-    const colourWheel = div.closest(
-      '.colour-wheel-container'
-    ) as HTMLDivElement;
-
-    const { x, y } = this.getClickCoordinates(
-      colourWheel,
-      event.clientX,
-      event.clientY
+  private updateSelectedColour(anchor: AnchorColour) {
+    this.selectedColour = this.colourPalette.findIndex(
+      element => element === anchor
     );
-
-    this.updateColourByCoordinates(x, y);
-
-    this.colourPaletteChange.emit(this.colourPalette);
-  }
-
-  private getClickCoordinates(
-    div: HTMLDivElement,
-    clientX: number,
-    clientY: number
-  ) {
-    const rect = div.getBoundingClientRect();
-
-    const x = clientX - (rect.left + rect.right) / 2;
-    const y = clientY - (rect.top + rect.bottom) / 2;
-    return { x, y };
-  }
-
-  private updateColourByCoordinates(x: number, y: number) {
-    this.colourPalette[this.selectedColour].colour.saturation =
-      this.colourMathsService.calculateSaturationByCoordinates(
-        x,
-        y,
-        this.diameter
-      );
-    this.colourPalette[this.selectedColour].colour.hue =
-      this.colourMathsService.calculateHueByCoordinates(x, y * -1);
   }
 }

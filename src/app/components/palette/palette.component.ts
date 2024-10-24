@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  HostListener,
+} from '@angular/core';
 import { AnchorColour } from '../../classes/anchor-colour/anchor-colour';
 import { ColourMathsService } from '../../services/colour-maths/colour-maths.service';
 import { hsvColour } from '../../types/hsvColour';
@@ -6,7 +13,6 @@ import { ColourWheelComponent } from '../colour-wheel/colour-wheel.component';
 import { SwatchComponent } from '../swatch/swatch.component';
 import { RelativeColourSlidersComponent } from '../swatch/editors/relative-colour-sliders/relative-colour-sliders.component';
 import { HsvSlidersComponent } from '../swatch/editors/hsv-sliders/hsv-sliders.component';
-import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-palette',

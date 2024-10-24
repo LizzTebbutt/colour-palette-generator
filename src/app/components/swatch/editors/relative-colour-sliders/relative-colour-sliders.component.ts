@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { SliderComponent } from '../../../slider/slider.component';
 import { ColourConstants } from '../../../../classes/colour-constants';
-import { relativeColour } from '../../../../types/selectedColour';
+import { RelativeColour } from '../../../../types/relativeColour';
 import { ColourConverterService } from '../../../../services/colour-converter/colour-converter.service';
 import { ColourMathsService } from '../../../../services/colour-maths/colour-maths.service';
 
@@ -19,8 +19,8 @@ import { ColourMathsService } from '../../../../services/colour-maths/colour-mat
   styleUrl: './relative-colour-sliders.component.scss',
 })
 export class RelativeColourSlidersComponent {
-  @Input({ required: true }) relativeColour!: relativeColour;
-  @Output() relativeColourChange = new EventEmitter<relativeColour>();
+  @Input({ required: true }) relativeColour!: RelativeColour;
+  @Output() relativeColourChange = new EventEmitter<RelativeColour>();
   @Input() containerWidth = 0;
 
   @Input({ required: true }) anchorHue!: number;

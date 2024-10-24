@@ -1,12 +1,12 @@
 import { hsvColour } from '../../types/hsvColour';
-import { relativeColour } from '../../types/selectedColour';
+import { RelativeColour } from '../../types/relativeColour';
 import { ColourConstants } from '../colour-constants';
 
 export class AnchorColour {
   colour: hsvColour;
-  relatedColours: relativeColour[];
+  relatedColours: RelativeColour[];
 
-  constructor(colour: hsvColour, relatedColours: relativeColour[]) {
+  constructor(colour: hsvColour, relatedColours: RelativeColour[]) {
     this.colour = colour;
     this.relatedColours = relatedColours;
   }

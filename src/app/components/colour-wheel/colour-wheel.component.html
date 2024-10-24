@@ -2,7 +2,7 @@
   class="colour-wheel-container"
   [style.width.px]="diameter"
   [style.height.px]="diameter"
-  (click)="colourWheelClick($event)">
+  (mousedown)="colourWheelMousedown($event)">
   <div
     class="colour-wheel"
     [style.width.px]="diameter"
@@ -19,23 +19,27 @@
     [style.height.px]="diameter"
     [style.opacity]="calculateValueOverlayOpacity()"></div>
 
-  @for (anchor of colourPalette; track anchor) {
-    <app-pointer
-      [colour]="anchor.colour"
-      [wheelDiameter]="diameter"></app-pointer>
-
-    @for (colour of anchor.relatedColours; track colour) {
+  <div class="anchors">
+    @for (anchor of colourPalette; track anchor) {
       <app-pointer
-        [colour]="{
-          hue: colourMathsService.getOffsetHue(
-            anchor.colour.hue,
-            colour.hueOffset
-          ),
-          saturation: colour.saturation,
-          value: colour.value,
-        }"
+        [colour]="anchor.colour"
         [wheelDiameter]="diameter"
-        class="pointer-secondary"></app-pointer>
+        (mousedown)="pointerMousedown($event, anchor)"></app-pointer>
+
+      @for (colour of anchor.relatedColours; track colour) {
+        <app-pointer
+          [colour]="{
+            hue: colourMathsService.getOffsetHue(
+              anchor.colour.hue,
+              colour.hueOffset
+            ),
+            saturation: colour.saturation,
+            value: colour.value,
+          }"
+          [wheelDiameter]="diameter"
+          class="pointer-secondary"
+          (mousedown)="secondaryPointerMousedown($event, anchor, colour)"></app-pointer>
+      }
     }
-  }
+  </div>
 </div>

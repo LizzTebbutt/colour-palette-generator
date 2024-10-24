@@ -5,7 +5,9 @@ import { AnchorColour } from '../../classes/anchor-colour/anchor-colour';
 import { FormattingConstants } from '../../classes/formatting-constants';
 import { ComponentRef, DebugElement } from '@angular/core';
 import { hsvColour } from '../../types/hsvColour';
+import { RelativeColour } from '../../types/relativeColour';
 import { By } from '@angular/platform-browser';
+import { ColourWheelService } from '../../services/colour-wheel/colour-wheel.service';
 
 describe('ColourWheelComponent', () => {
   let fixture: ComponentFixture<ColourWheelComponent>;
@@ -13,9 +15,30 @@ describe('ColourWheelComponent', () => {
   let componentRef: ComponentRef<ColourWheelComponent>;
   let selectedAnchorColour: hsvColour;
 
+  const mockColourWheelService = jasmine.createSpyObj('ColourWheelService', [
+    'updateColour',
+    'stopUpdatingColour',
+    'colourWheelMousedown',
+    'anchorPointerMousedown',
+    'relativePointerMousedown',
+  ]);
+  const testRelativeColour = {
+    hueOffset: 0,
+    saturation: 0,
+    value: 0,
+  } as RelativeColour;
+  const testAnchorColour = new AnchorColour(ColourConstants.red().hsv, []);
+  const testMouseEvent = new MouseEvent('click');
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ColourWheelComponent],
+      providers: [
+        {
+          provide: ColourWheelService,
+          useValue: mockColourWheelService,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ColourWheelComponent);
@@ -34,25 +57,49 @@ describe('ColourWheelComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('colourWheelClick', () => {
-    it('should be called when the colour wheel is clicked', () => {
-      spyOn(component, 'colourWheelClick');
+  describe('updateColour', () => {
+    it('should call out to the colourWheelService', () => {
+      component.updateColour(new MouseEvent('click'));
 
-      const colourWheelElement = findComponent('.colour-wheel');
-      colourWheelElement.click();
-
-      expect(component.colourWheelClick).toHaveBeenCalled();
+      expect(mockColourWheelService.updateColour).toHaveBeenCalled();
     });
-    it('should emit a change event', () => {
-      spyOn(component.colourPaletteChange, 'emit');
+  });
 
-      const colourWheelElement = findComponent('.colour-wheel');
-      colourWheelElement.click();
+  describe('stopUpdatingColour', () => {
+    it('should call out to the colourWheelService', () => {
+      component.stopUpdatingColour();
 
-      expect(component.colourPaletteChange.emit).toHaveBeenCalled();
-      expect(component.colourPaletteChange.emit).toHaveBeenCalledWith(
-        component.colourPalette
+      expect(mockColourWheelService.stopUpdatingColour).toHaveBeenCalled();
+    });
+  });
+
+  describe('colourWheelMousedown', () => {
+    it('should call out to the colourWheelService', () => {
+      component.colourWheelMousedown(testMouseEvent);
+
+      expect(mockColourWheelService.colourWheelMousedown).toHaveBeenCalled();
+    });
+  });
+
+  describe('pointerMousedown', () => {
+    it('should call out to the colourWheelService', () => {
+      component.pointerMousedown(testMouseEvent, testAnchorColour);
+
+      expect(mockColourWheelService.anchorPointerMousedown).toHaveBeenCalled();
+    });
+  });
+
+  describe('secondaryPointerMousedown', () => {
+    it('should call out to the colourWheelService', () => {
+      component.secondaryPointerMousedown(
+        testMouseEvent,
+        testAnchorColour,
+        testRelativeColour
       );
+
+      expect(
+        mockColourWheelService.relativePointerMousedown
+      ).toHaveBeenCalled();
     });
   });
 
@@ -102,6 +149,28 @@ describe('ColourWheelComponent', () => {
       expect(result).toBe(1);
     });
   });
+
+  // describe('colourWheelClick', () => {
+  //   it('should be called when the colour wheel is clicked', () => {
+  //     spyOn(component, 'colourWheelClick');
+
+  //     const colourWheelElement = findComponent('.colour-wheel');
+  //     colourWheelElement.click();
+
+  //     expect(component.colourWheelClick).toHaveBeenCalled();
+  //   });
+  //   it('should emit a change event', () => {
+  //     spyOn(component.colourPaletteChange, 'emit');
+
+  //     const colourWheelElement = findComponent('.colour-wheel');
+  //     colourWheelElement.click();
+
+  //     expect(component.colourPaletteChange.emit).toHaveBeenCalled();
+  //     expect(component.colourPaletteChange.emit).toHaveBeenCalledWith(
+  //       component.colourPalette
+  //     );
+  //   });
+  // });
 
   describe('html rendering', () => {
     describe('anchors', () => {

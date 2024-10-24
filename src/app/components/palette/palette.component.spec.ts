@@ -70,20 +70,47 @@ describe('PaletteComponent', () => {
   });
 
   describe('OnResize', () => {
+    it('should be called on window resize', () => {
+      const onResizeSpy = spyOn(component, 'onResize').and.callThrough();
+
+      window.dispatchEvent(new Event('resize'));
+
+      expect(onResizeSpy).toHaveBeenCalled();
+    });
+
     it('should be called on init', () => {
-      expect(false);
+      const onResizeSpy = spyOn(component, 'onResize').and.callThrough();
+
+      component.ngOnInit();
+
+      expect(onResizeSpy).toHaveBeenCalled();
     });
 
     it('should set the diameter to 200 when the screen size is less than 525', () => {
-      expect(false);
+      const testInnerWidth = 524;
+
+      spyOnProperty(window, 'innerWidth').and.returnValue(testInnerWidth);
+      window.dispatchEvent(new Event('resize'));
+
+      expect(component.diameter).toBe(200);
     });
 
     it('should set the diameter to 300 when the screen size is less than 768', () => {
-      expect(false);
+      const testInnerWidth = 767;
+
+      spyOnProperty(window, 'innerWidth').and.returnValue(testInnerWidth);
+      window.dispatchEvent(new Event('resize'));
+
+      expect(component.diameter).toBe(300);
     });
 
     it('should set the diameter to 400 when the screen size is larger than 768', () => {
-      expect(false);
+      const testInnerWidth = 769;
+
+      spyOnProperty(window, 'innerWidth').and.returnValue(testInnerWidth);
+      window.dispatchEvent(new Event('resize'));
+
+      expect(component.diameter).toBe(400);
     });
   });
 });
