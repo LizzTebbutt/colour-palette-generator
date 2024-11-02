@@ -1,5 +1,5 @@
 {
-  "name": "colour-picker",
+  "name": "colourtron",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:colour-picker": "node dist/colour-picker/server/server.mjs",
+    "serve:ssr:colourtron": "node dist/colourtron/server/server.mjs",
     "lint": "ng lint"
   },
   "private": true,

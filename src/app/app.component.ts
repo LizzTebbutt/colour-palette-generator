@@ -31,7 +31,7 @@ import { PaletteComponent } from './components/palette/palette.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title = 'colour-picker';
+  title = 'colourtron';
 
   colourPalette: AnchorColour[] = [
     new AnchorColour(ColourConstants.red().hsv, []),
