@@ -26,3 +26,11 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BASE_BRANCH: main
+          BRANCH: prod
+          folder: colourtron/dist/browser
