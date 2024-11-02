@@ -33,4 +33,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BASE_BRANCH: main
           BRANCH: prod
-          folder: colourtron/dist/browser
+          folder: dist/browser
