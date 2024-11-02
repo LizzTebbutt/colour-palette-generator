@@ -8,6 +8,7 @@
     "build:prod": "ng build --configuration=production --base-href=/colour-palette-generator/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:prod": "ng test --browsers Chrome",
     "serve:ssr:colourtron": "node dist/colourtron/server/server.mjs",
     "lint": "ng lint"
   },
