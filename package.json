@@ -12,7 +12,7 @@
     "serve:ssr:colourtron": "node dist/colourtron/server/server.mjs",
     "lint": "ng lint"
   },
-  "private": true, 
+  "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
     "@angular/cdk": "^18.2.2",
