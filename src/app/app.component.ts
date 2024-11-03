@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ColourWheelComponent } from './components/colour-wheel/colour-wheel.component';
 import { SliderComponent } from './components/slider/slider.component';
@@ -13,6 +13,7 @@ import { ColourConverterService } from './services/colour-converter/colour-conve
 import { GradientsService } from './services/gradients/gradients.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PaletteComponent } from './components/palette/palette.component';
+import { FormattingConstants } from './classes/formatting-constants';
 
 @Component({
   selector: 'app-root',
@@ -30,13 +31,17 @@ import { PaletteComponent } from './components/palette/palette.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'colourtron';
 
   colourPalette: AnchorColour[] = [
     new AnchorColour(ColourConstants.red().hsv, []),
   ];
   selectedColour = 0;
+  wheelDiameter = FormattingConstants.defaultWheelDiameter;
+  observer: ResizeObserver = new ResizeObserver(this.setNewDiameter);
+  zone: NgZone;
+  contentContainer!: HTMLDivElement;
 
   colourMathsService: ColourMathsService;
   colourConverterService: ColourConverterService;
@@ -45,15 +50,33 @@ export class AppComponent implements OnInit {
   constructor(
     colourMathsService: ColourMathsService,
     colourConverterService: ColourConverterService,
-    gradientsService: GradientsService
+    gradientsService: GradientsService,
+    zone: NgZone
   ) {
     this.colourMathsService = colourMathsService;
     this.colourConverterService = colourConverterService;
     this.gradientsService = gradientsService;
+    this.zone = zone;
   }
 
   ngOnInit() {
     this.generateBackgroundGradient();
+
+    this.contentContainer = document.getElementsByClassName(
+      'content-container'
+    )[0] as HTMLDivElement;
+
+    this.observer = new ResizeObserver(() => {
+      this.zone.run(() => {
+        this.setNewDiameter();
+      });
+    });
+
+    this.observer.observe(this.contentContainer);
+  }
+
+  ngOnDestroy() {
+    this.observer.unobserve(this.contentContainer);
   }
 
   generateBackgroundGradient(): string {
@@ -68,5 +91,58 @@ export class AppComponent implements OnInit {
     });
 
     return this.gradientsService.createLinearGradient(colours, '160deg');
+  }
+
+  private setNewDiameter() {
+    const containerWidth = this.getDivWidthByClass('wheel-container');
+
+    const availableWidth = this.getAvailableWidth();
+    const sidebarWidth = this.getSidebarWidth();
+
+    if (window.innerWidth < 768) {
+      this.wheelDiameter = containerWidth;
+    } else if (window.innerWidth < 1024) {
+      this.wheelDiameter = Math.min(
+        availableWidth,
+        FormattingConstants.defaultWheelDiameter
+      );
+    } else {
+      const wheelWidth = availableWidth - sidebarWidth;
+
+      this.wheelDiameter = Math.min(
+        wheelWidth,
+        FormattingConstants.defaultWheelDiameter
+      );
+    }
+  }
+
+  private getDivWidthByClass(className: string): number {
+    const element = document.getElementsByClassName(
+      className
+    )[0] as HTMLDivElement;
+
+    return element.offsetWidth;
+  }
+
+  private getSidebarWidth() {
+    const sidebarWidth = this.getDivWidthByClass('sidebar-body-container');
+    const sidebarButtonWidth = this.getDivWidthByClass('toggle-button');
+    const borderWidth = 5;
+    const fullSidebarWidth = sidebarWidth + sidebarButtonWidth + borderWidth;
+    return fullSidebarWidth;
+  }
+
+  private getAvailableWidth() {
+    const body = document.body as HTMLDivElement;
+
+    const contentWidth = this.getDivWidthByClass('content');
+    const wheelContainerWidth = this.getDivWidthByClass('wheel-container');
+    const usedContentWidth = contentWidth - wheelContainerWidth;
+    const contentContainerPadding = 32;
+
+    const availableWidth =
+      body.clientWidth - usedContentWidth - contentContainerPadding;
+
+    return availableWidth;
   }
 }

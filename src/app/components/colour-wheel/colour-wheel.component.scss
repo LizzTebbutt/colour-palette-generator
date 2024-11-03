@@ -2,15 +2,22 @@
 @use '../../../styles/borders' as borders;
 @use '../../../styles/spacing' as spacing;
 @use '../../../styles/colours' as colours;
+@use '../../../styles/media-queries' as media;
 
 .colour-wheel-container {
-  margin: spacing.$double;
+  max-width: 400px;
+  width: 100%;
+  position: absolute;
+  
+  @include media.tablet-plus {
+    position: unset;
+  }
 
   .colour-wheel, .white-overlay, .value-overlay {
     border-radius: 100%;
     border: borders.$border-basic;
     position: absolute;
-    box-sizing: border-box;
+    width: 100%;
   }
 
   .colour-wheel {

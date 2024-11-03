@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  HostListener,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AnchorColour } from '../../classes/anchor-colour/anchor-colour';
 import { ColourMathsService } from '../../services/colour-maths/colour-maths.service';
 import { hsvColour } from '../../types/hsvColour';
@@ -26,33 +19,17 @@ import { HsvSlidersComponent } from '../swatch/editors/hsv-sliders/hsv-sliders.c
   templateUrl: './palette.component.html',
   styleUrl: './palette.component.scss',
 })
-export class PaletteComponent implements OnInit {
+export class PaletteComponent {
   colourMathsService: ColourMathsService;
   @Input({ required: true }) colourPalette!: AnchorColour[];
   @Output() colourPaletteChange = new EventEmitter<AnchorColour[]>();
 
-  diameter = 400;
+  @Input({ required: true }) wheelDiameter!: number;
+
   selectedColour = 0;
 
   constructor(colourMathsService: ColourMathsService) {
     this.colourMathsService = colourMathsService;
-  }
-
-  ngOnInit(): void {
-    this.onResize();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    console.log(window.innerWidth);
-
-    if (window.innerWidth < 525) {
-      this.diameter = 200;
-    } else if (window.innerWidth < 768) {
-      this.diameter = 300;
-    } else {
-      this.diameter = 400;
-    }
   }
 
   addComplementary(): void {

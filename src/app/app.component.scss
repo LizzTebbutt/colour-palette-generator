@@ -25,13 +25,17 @@
 }
 
 .content-container {
+  padding: spacing.$standard;
+  
   @include media.tablet-plus {
     margin: auto;
+    display: flex;
+    width: 100%;
   }
 }
 
 .content {
-  margin: spacing.$standard;
+  margin: auto;
 
   background: colours.$background-primary;
 
