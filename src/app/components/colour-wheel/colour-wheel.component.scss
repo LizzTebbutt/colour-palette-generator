@@ -6,10 +6,11 @@
 .colour-wheel-container {
   margin: spacing.$double;
 
-  div {
+  .colour-wheel, .white-overlay, .value-overlay {
     border-radius: 100%;
     border: borders.$border-basic;
     position: absolute;
+    box-sizing: border-box;
   }
 
   .colour-wheel {

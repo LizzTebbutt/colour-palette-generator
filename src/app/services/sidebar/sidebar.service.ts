@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SidebarService {
-  isExpanded = true;
+  isExpanded = false;
 
   toggleSidebar() {
     this.isExpanded = !this.isExpanded;
