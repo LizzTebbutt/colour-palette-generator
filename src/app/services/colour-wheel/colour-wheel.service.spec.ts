@@ -6,6 +6,7 @@ import { ColourConstants } from '../../classes/colour-constants';
 import { RelativeColour } from '../../types/relativeColour';
 import { hsvColour } from '../../types/hsvColour';
 import { ColourMathsService } from '../colour-maths/colour-maths.service';
+import { FormattingConstants } from '../../classes/formatting-constants';
 
 describe('ColourWheelServiceService', () => {
   let service: ColourWheelService;
@@ -48,7 +49,7 @@ describe('ColourWheelServiceService', () => {
       service.colourWheelMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor?.colour).not.toBe(testAnchorColour.colour);
@@ -61,7 +62,7 @@ describe('ColourWheelServiceService', () => {
       service.colourWheelMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.isChanging).toBeTrue();
@@ -74,7 +75,7 @@ describe('ColourWheelServiceService', () => {
       service.colourWheelMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor).toBe(testAnchorColour);
@@ -87,7 +88,7 @@ describe('ColourWheelServiceService', () => {
       service.colourWheelMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor?.colour.hue).toBe(0);
@@ -103,7 +104,7 @@ describe('ColourWheelServiceService', () => {
       service.anchorPointerMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.isChanging).toBeTrue();
@@ -116,7 +117,7 @@ describe('ColourWheelServiceService', () => {
       service.anchorPointerMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor).toBe(testAnchorColour);
@@ -129,7 +130,7 @@ describe('ColourWheelServiceService', () => {
       service.anchorPointerMousedown(
         new MouseEvent('click'),
         testAnchorColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor?.colour.hue).toBe(0);
@@ -147,7 +148,7 @@ describe('ColourWheelServiceService', () => {
         new MouseEvent('click'),
         testAnchorColour,
         testRelativeColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.isChanging).toBeTrue();
@@ -161,7 +162,7 @@ describe('ColourWheelServiceService', () => {
         new MouseEvent('click'),
         testAnchorColour,
         newRelativeColour(),
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor).toBe(testAnchorColour);
@@ -175,7 +176,7 @@ describe('ColourWheelServiceService', () => {
         new MouseEvent('click'),
         newAnchorColour(),
         testRelativeColour,
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedRelativeColour).toBe(testRelativeColour);
@@ -189,7 +190,7 @@ describe('ColourWheelServiceService', () => {
         new MouseEvent('click'),
         testAnchorColour,
         newRelativeColour(),
-        400
+        FormattingConstants.defaultWheelDiameter
       );
 
       expect(service.selectedAnchor?.colour.hue).toBe(0);
@@ -201,7 +202,10 @@ describe('ColourWheelServiceService', () => {
     it('should not update anything if isChanging is false', () => {
       setInitialServiceState(false, newAnchorColour(), newRelativeColour());
 
-      service.updateColour(new MouseEvent('click'), 400);
+      service.updateColour(
+        new MouseEvent('click'),
+        FormattingConstants.defaultWheelDiameter
+      );
 
       expect(service.selectedAnchor).not.toBeUndefined();
       expect(service.selectedRelativeColour).not.toBeUndefined();
@@ -210,7 +214,10 @@ describe('ColourWheelServiceService', () => {
     it('should update the relative colour if selectedRelativeColour is set', () => {
       setInitialServiceState(false, newAnchorColour(), newRelativeColour());
 
-      service.updateColour(new MouseEvent('click'), 400);
+      service.updateColour(
+        new MouseEvent('click'),
+        FormattingConstants.defaultWheelDiameter
+      );
 
       expect(service.selectedAnchor).not.toBeUndefined();
       expect(service.selectedRelativeColour).not.toBeUndefined();
@@ -219,7 +226,10 @@ describe('ColourWheelServiceService', () => {
     it('should update the anchor colour if selectedRelativeColour is not set and selectedAnchor is', () => {
       setInitialServiceState(false, newAnchorColour(), undefined);
 
-      service.updateColour(new MouseEvent('click'), 400);
+      service.updateColour(
+        new MouseEvent('click'),
+        FormattingConstants.defaultWheelDiameter
+      );
 
       expect(service.selectedAnchor).not.toBeUndefined();
       expect(service.selectedRelativeColour).toBeUndefined();

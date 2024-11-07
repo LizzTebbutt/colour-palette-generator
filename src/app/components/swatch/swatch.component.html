@@ -1,11 +1,14 @@
-<div
-  class="swatch"
-  [style.background]="getRgbColourString(colour)"
-  [style.width.px]="width"
-  [style.height.px]="width">
-  <div class="hex-container">
-    <h2 [style.color]="getTextColour()">{{ getSelectedColourHex(colour) }}</h2>
-  </div>
+<div class="swatch shadowed">
+  @if(isAddColourButton) {
+    <div class="add-colour-container">
+      <h2>Add <br> Colour</h2>
+    </div>
+  }
+  @else {
+    <div class="hex-container inner-shadowed" [style.background]="getRgbColourString(colour)">
+      <h2 [style.color]="getTextColour()">{{ getSelectedColourHex(colour) }}</h2>
+    </div>
+  }
 
   <div class="colour-container">
     <ng-content />

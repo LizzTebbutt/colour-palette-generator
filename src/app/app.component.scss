@@ -19,25 +19,32 @@
   }
 
   flex-grow: 1;
-  gap: spacing.$triple;
-  background: colours.$background-secondary;
-  border-radius: 0 0 borders.$radius-inner borders.$radius-inner;
+  background: colours.$background-tertiary;
+  overflow: hidden;
 }
 
 .content-container {
   padding: spacing.$standard;
-  
+  padding-top: spacing.$quadruple;
+
   @include media.tablet-plus {
+    padding-left: spacing.$double;
+    padding-right: spacing.$double;
+    padding-bottom: spacing.$triple;
     margin: auto;
     display: flex;
-    width: 100%;
+  }
+
+  @include media.desktop {
+    padding-left: spacing.$quadruple;
+    padding-right: spacing.$triple;
   }
 }
 
 .content {
   margin: auto;
 
-  background: colours.$background-primary;
+  background: colours.$background-secondary;
 
   border: borders.$border-basic;
   border-radius: borders.$radius-basic;
@@ -46,10 +53,17 @@
 
 .header-bar {
   border-radius: borders.$radius-inner borders.$radius-inner 0 0;
-  border-bottom: borders.$border-basic;
-  padding: spacing.$standard;
+  border-bottom: borders.$border-thin;
+  padding: spacing.$double;
+  letter-spacing: -2px;
+  font-weight: light;
+
+  position: relative;
+
+  overflow: hidden;
 
   h1 {
+    position: relative;
     margin: 0;
     margin-bottom: -6px;
   }

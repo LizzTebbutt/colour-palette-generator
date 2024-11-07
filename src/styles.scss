@@ -1,20 +1,39 @@
 @use './styles/borders' as borders;
 @use './styles/spacing' as spacing;
+@use './styles/media-queries' as media;
+@use './styles/colours' as colours;
 
 html {
-  background: repeating-linear-gradient(-45deg, whitesmoke 0px, whitesmoke spacing.$double, silver spacing.$double, silver spacing.$double * 2, whitesmoke spacing.$double * 2);
+  background: repeating-linear-gradient(-45deg, colours.$grey-500 0, colours.$grey-500 spacing.$triple, colours.$grey-400 spacing.$triple, colours.$grey-400 spacing.$triple * 2, colours.$grey-500 spacing.$triple * 2);
 }
 
 body { 
-  margin: spacing.$standard;  
+  margin: spacing.$half;  
+
+  @include media.tablet-plus {
+    margin: spacing.$double;
+  }  
+  @include media.desktop {
+    margin: spacing.$double spacing.$triple;
+  }
+
   border: borders.$border-basic;
   border-radius: borders.$radius-basic;
   box-sizing: border-box;
   height: auto;
-  min-height: calc(100vh - spacing.$double);
+  min-height: calc(100vh - spacing.$double * 2);
 
   display: flex;
   align-items: stretch;
+
+  color: colours.$outline;
+}
+
+.shadowed {
+  box-shadow: borders.$box-shadow;
+}
+.inner-shadowed {
+  box-shadow: borders.$inner-shadow;
 }
 
 :root {
@@ -26,4 +45,90 @@ body {
   font-family: "Overpass Mono", monospace;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+button {
+  padding: spacing.$larger;
+}
+
+.blurred-gradient-background {
+  $blur: 30px;
+
+  filter: blur($blur);
+  position: absolute;
+  top: -$blur * 2;
+  bottom: -$blur * 2;
+  left: -$blur * 2;
+  right: -$blur * 2;
+  
+  z-index: -1;
+  
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.33), rgba(255, 255, 255, 0.33)), var(--scheme-gradient);
+}
+
+.icon-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  $size: spacing.$triple;
+  width: $size;
+  height: $size;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  border-radius: 50%;
+
+  background-color: colours.$outline;
+
+  cursor: pointer;
+
+  box-sizing: content-box;
+
+  &:hover {
+    .mat-icon {
+      animation: grow-shrink-wiggle 3s linear infinite;
+
+      @keyframes grow-shrink-wiggle {
+        0% {
+          transform: rotate(0) scale(1);
+        }
+        20% {
+          transform: scale(1.2);
+        }
+        40% {
+          transform: scale(1);
+        }
+        60% {
+          transform: scale(1.2);
+        }
+        80% {
+          transform: scale(1);
+        }
+        85% {
+          transform: rotate(-30deg);
+        }
+        90% {
+          transform: rotate(30deg);
+        }
+        95% {
+          transform: rotate(-30deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  mat-icon {
+    font-size: 1.5em;
+
+    width: fit-content;
+    height: fit-content;
+
+    color: colours.$background-primary;
+  }
 }

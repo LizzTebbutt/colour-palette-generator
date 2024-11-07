@@ -210,21 +210,12 @@ describe('ColourWheelComponent', () => {
     });
 
     describe('diameter', () => {
-      it('should be defaulted when no diameter parameter is provided', () => {
-        testColourWheelDimensions(FormattingConstants.defaultWheelDiameter);
-      });
-
       it('should render at the correct size when a size parameter is provided', () => {
         const overrideSize = 100;
         componentRef.setInput('diameter', overrideSize);
 
-        testColourWheelDimensions(overrideSize);
-      });
-
-      it('should handle invalid size parameters', () => {
-        const overrideSize = -1;
-        componentRef.setInput('diameter', overrideSize);
-        const expectedSize = 400;
+        const expectedSize =
+          overrideSize - FormattingConstants.thinBorderWidth * 2;
 
         testColourWheelDimensions(expectedSize);
       });
@@ -266,7 +257,6 @@ describe('ColourWheelComponent', () => {
   function testColourWheelDimensions(expectedSize: number) {
     fixture.detectChanges();
 
-    testElementDimensions('.colour-wheel-container', expectedSize);
     testElementDimensions('.colour-wheel', expectedSize);
     testElementDimensions('.value-overlay', expectedSize);
     testElementDimensions('.white-overlay', expectedSize);

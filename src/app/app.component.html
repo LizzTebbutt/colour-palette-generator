@@ -1,4 +1,5 @@
-<div class="header-bar" [style.background]="generateBackgroundGradient()">
+<div class="header-bar">
+  <div class="blurred-gradient-background" [style.background]="updateBackgroundGradient()"></div>
   <h1>Colourtron</h1>
 </div>
 
@@ -6,10 +7,12 @@
   <app-sidebar></app-sidebar>
 
   <div class="content-container">
-    <div class="content">
+    <div class="content shadowed">
       <app-palette [(colourPalette)]="colourPalette" [wheelDiameter]="wheelDiameter"></app-palette>
     </div>
   </div>
 </main>
+
+<app-footer></app-footer>
 
 <router-outlet />

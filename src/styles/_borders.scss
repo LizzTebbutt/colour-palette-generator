@@ -1,10 +1,16 @@
 @use './spacing' as spacing;
+@use './colours' as colours;
 
-$width-basic: 5px;
+$width-basic: 4px;
+$width-thin: $width-basic * 0.75;
 $width-half: $width-basic / 2;
-$colour-basic: black;
-$radius-basic: spacing.$standard;
+$colour-basic: colours.$outline;
+$radius-basic: spacing.$double;
 $radius-inner: $radius-basic - $width-basic;
 
 $border-basic: $width-basic solid $colour-basic;
+$border-thin: $width-thin solid $colour-basic;
 $border-half-width: $width-half solid $colour-basic;
+
+$box-shadow: $width-basic  $width-basic*1.5 0 0 colours.$grey-900;
+$inner-shadow: inset $width-thin $width-basic 0 0 colours.$grey-900;

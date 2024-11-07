@@ -1,5 +1,10 @@
 @use '../../../styles/borders' as borders;
 @use '../../../styles/spacing' as spacing;
+@use '../../../styles/colours' as colours;
+
+:host {
+  display: flex;
+}
 
 .swatch {
   display: flex;
@@ -7,14 +12,39 @@
   justify-content: flex-end;
   border-radius: borders.$radius-basic;
   border: borders.$border-basic;
+  padding: spacing.$standard;
+
+  background: colours.$background-primary;
 }
 
 .colour-container, .hex-container {
   max-width: 100%;
-  margin: spacing.$half 12px spacing.$half spacing.$half;
   min-width: 0;
 }
 
+.colour-container {
+  box-sizing: border-box;
+  padding: spacing.$half 12px spacing.$half spacing.$half;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hex-container, .add-colour-container {
+  text-align: center;
+  width: 184px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .hex-container {
-    text-align: center;
+  border: borders.$border-thin;
+  border-radius: borders.$radius-basic;
+  height: 184px;
+}
+
+h2 {
+  text-align: center;
+  width: 184px;
 }

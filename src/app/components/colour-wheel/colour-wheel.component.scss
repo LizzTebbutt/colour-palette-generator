@@ -5,19 +5,12 @@
 @use '../../../styles/media-queries' as media;
 
 .colour-wheel-container {
-  max-width: 400px;
-  width: 100%;
-  position: absolute;
-  
-  @include media.tablet-plus {
-    position: unset;
-  }
-
   .colour-wheel, .white-overlay, .value-overlay {
     border-radius: 100%;
-    border: borders.$border-basic;
+    border: borders.$border-thin;
     position: absolute;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .colour-wheel {

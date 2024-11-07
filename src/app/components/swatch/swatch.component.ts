@@ -14,6 +14,7 @@ import { ColourConverterService } from '../../services/colour-converter/colour-c
 export class SwatchComponent {
   @Input() width = 200;
   @Input({ required: true }) colour!: hsvColour;
+  @Input() isAddColourButton = false;
   colourMathsService: ColourMathsService;
   colourConverterService: ColourConverterService;
   textColour = 'white';

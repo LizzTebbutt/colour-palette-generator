@@ -1,0 +1,11 @@
+@use '../../../styles/spacing' as spacing;
+@use '../../../styles/colours' as colours;
+@use '../../../styles/borders' as borders;
+
+div {
+  padding: spacing.$larger;
+  text-align: right;
+  background-color: colours.$background-secondary;
+  border-top: borders.$border-thin;
+  border-radius: 0 0 borders.$radius-inner borders.$radius-inner;
+}

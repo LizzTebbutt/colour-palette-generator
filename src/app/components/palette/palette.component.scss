@@ -17,6 +17,7 @@
   width: 100%;
   gap: spacing.$standard;
   flex-wrap: wrap;
+  align-content: stretch;
 
   @include media.desktop {
     flex-direction: row;
@@ -24,34 +25,70 @@
 }
 
 .swatch-container {
-  margin: spacing.$standard;
+  margin: spacing.$double;
+}
+
+.buttons, .swatch-container {
+  z-index: 1;
 }
 
 .colours {
   display: flex;
   flex-direction: column;
   flex-basis: fit-content;
+
+  border-radius: 0 0 borders.$radius-inner borders.$radius-inner;
+
+  overflow: hidden;
+  position: relative;
+
+  max-width: 1008px;
+
+  .blurred-gradient-background {   
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.66)), var(--scheme-gradient);
+
+    z-index: 0;
+  }
+
+  @include media.tablet-plus {
+    border-radius: 0 borders.$radius-inner borders.$radius-inner 0;
+  }
 }
 
 .buttons {
   width: 100%;
 }
 
-button {
-  background-color: colours.$outline;
-  border: borders.$border-basic;
+button.add-colour {  
   color: colours.$background-primary;
-  width: 100%;
-  font-size: 1.5rem;
-  margin-bottom: spacing.$standard;
-  cursor: pointer;
+  margin-bottom: spacing.$double;
+  position: inherit;
 }
 
 .wheel-container {
-  margin: auto;
-  margin: spacing.$double;
+  box-sizing: border-box;
+
+  width: unset;
+
+  padding: spacing.$larger;
+  background-color: colours.$grey-100;
+  border-radius: 50%;
+  border: borders.$border-basic;
+
+  align-self: center;
+
+  margin: spacing.$standard;
+
+  @include media.desktop {
+    margin: spacing.$triple;
+  }
 }
 
-.vertical-rule {
-  border-right: borders.$border-basic;
+.divider {
+  border-top: borders.$border-thin;
+
+  @include media.tablet-plus {
+    border-right: borders.$border-thin;
+    border-top: none;
+  }
 }

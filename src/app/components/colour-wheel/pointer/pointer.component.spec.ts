@@ -198,7 +198,7 @@ describe('PointerComponent', () => {
     it('should return the correct margin when the diameter and arm width are left default', () => {
       const expectedMargin =
         (FormattingConstants.defaultWheelDiameter -
-          FormattingConstants.defaultArmWidth) /
+          FormattingConstants.defaultBorderWidth) /
         2;
 
       const margin = component.calculateArmMargins();
@@ -210,7 +210,7 @@ describe('PointerComponent', () => {
       const testDiameter = FormattingConstants.defaultWheelDiameter / 2;
       component.wheelDiameter = testDiameter;
       const expectedMargin =
-        (component.wheelDiameter - FormattingConstants.defaultArmWidth) / 2;
+        (component.wheelDiameter - FormattingConstants.defaultBorderWidth) / 2;
 
       const margin = component.calculateArmMargins();
 
@@ -218,7 +218,7 @@ describe('PointerComponent', () => {
     });
 
     it('should return the correct margin when the arm width is modified', () => {
-      const testArmWidth = FormattingConstants.defaultArmWidth / 2;
+      const testArmWidth = FormattingConstants.defaultBorderWidth / 2;
       component.armWidth = testArmWidth;
       const expectedMargin =
         (FormattingConstants.defaultWheelDiameter - component.armWidth) / 2;
@@ -324,11 +324,11 @@ describe('PointerComponent', () => {
 
     describe('armWidth', () => {
       it('should be set to defaultArmWidth by default', () => {
-        expect(component.armWidth).toBe(FormattingConstants.defaultArmWidth);
+        expect(component.armWidth).toBe(FormattingConstants.defaultBorderWidth);
       });
 
       it('should overwrite the default when the input is positive', () => {
-        const input = FormattingConstants.defaultArmWidth / 2;
+        const input = FormattingConstants.defaultBorderWidth / 2;
 
         componentRef.setInput('armWidth', input);
         fixture.detectChanges();
@@ -346,12 +346,12 @@ describe('PointerComponent', () => {
       });
 
       it('should return to the default when the input is negative', () => {
-        const input = -FormattingConstants.defaultArmWidth;
+        const input = -FormattingConstants.defaultBorderWidth;
 
         componentRef.setInput('armWidth', input);
         fixture.detectChanges();
 
-        expect(component.armWidth).toBe(FormattingConstants.defaultArmWidth);
+        expect(component.armWidth).toBe(FormattingConstants.defaultBorderWidth);
       });
     });
   });
@@ -435,7 +435,7 @@ describe('PointerComponent', () => {
 
         expect(element).toBeTruthy();
         expect(element?.style.width).toBe(
-          FormattingConstants.defaultArmWidth + 'px'
+          FormattingConstants.defaultBorderWidth + 'px'
         );
       });
     });

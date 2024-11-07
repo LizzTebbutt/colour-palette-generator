@@ -9,7 +9,6 @@ import { PointerComponent } from './pointer/pointer.component';
 import { AnchorColour } from '../../classes/anchor-colour/anchor-colour';
 import { ColourConstants } from '../../classes/colour-constants';
 import { ColourMathsService } from '../../services/colour-maths/colour-maths.service';
-import { FormattingConstants } from '../../classes/formatting-constants';
 import { RelativeColour } from '../../types/relativeColour';
 import { ColourWheelService } from '../../services/colour-wheel/colour-wheel.service';
 
@@ -24,11 +23,7 @@ export class ColourWheelComponent {
   @Input({ required: true }) selectedColour!: number;
   @Input({ required: true }) colourPalette!: AnchorColour[];
   @Output() colourPaletteChange = new EventEmitter<AnchorColour[]>();
-  @Input({
-    transform: (value: number) =>
-      value < 0 ? FormattingConstants.defaultWheelDiameter : value,
-  })
-  diameter: number = FormattingConstants.defaultWheelDiameter;
+  @Input({ required: true }) diameter!: number;
   colourMathsService: ColourMathsService;
   colourWheelService: ColourWheelService;
 

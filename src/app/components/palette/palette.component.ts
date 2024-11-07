@@ -6,6 +6,7 @@ import { ColourWheelComponent } from '../colour-wheel/colour-wheel.component';
 import { SwatchComponent } from '../swatch/swatch.component';
 import { RelativeColourSlidersComponent } from '../swatch/editors/relative-colour-sliders/relative-colour-sliders.component';
 import { HsvSlidersComponent } from '../swatch/editors/hsv-sliders/hsv-sliders.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-palette',
@@ -15,6 +16,7 @@ import { HsvSlidersComponent } from '../swatch/editors/hsv-sliders/hsv-sliders.c
     SwatchComponent,
     RelativeColourSlidersComponent,
     HsvSlidersComponent,
+    MatIconModule,
   ],
   templateUrl: './palette.component.html',
   styleUrl: './palette.component.scss',

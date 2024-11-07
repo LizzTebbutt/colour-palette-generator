@@ -28,9 +28,9 @@ export class PointerComponent {
 
   @Input({
     transform: (value: number) =>
-      value < 0 ? FormattingConstants.defaultArmWidth : value,
+      value < 0 ? FormattingConstants.defaultBorderWidth : value,
   })
-  armWidth: number = FormattingConstants.defaultArmWidth;
+  armWidth: number = FormattingConstants.defaultBorderWidth;
 
   colourMathsService: ColourMathsService;
 

@@ -7,8 +7,9 @@
   box-sizing: border-box;
   position: relative;
   top: 0;
-  background-color: colours.$background-primary;
+  background-color: colours.$background-secondary;
   transition: 300ms cubic-bezier(.02,.68,.63,.98);
+  border-bottom: borders.$border-thin;
 
   //default
   max-height: 0;
@@ -20,20 +21,18 @@
     margin-bottom: borders.$width-basic;  
     border-left: borders.$border-basic;
     border-right: borders.$border-basic;
-    border-width: 0 borders.$width-half 0 borders.$width-half;
-    border-radius: 0 0 0 borders.$radius-inner;
+    border-width: 0 borders.$width-thin 0 0;
+    box-sizing: border-box;
   }
 
   //expanded
   &.is-expanded {
     max-height: 100vh;
-    border-bottom: borders.$border-basic;
 
     @include media.desktop {
       width: var(--sidebar-width);
-      border-width: 0 borders.$width-basic 0 0;
-      margin-left: 0;
       margin-bottom: 0;
+      max-height: unset;
     }
   }
 }
@@ -41,7 +40,7 @@
 .sidebar-body-container {
   max-height: inherit;
   overflow: hidden;
-  padding: spacing.$standard;
+  margin: spacing.$double;
   box-sizing: border-box;
 }
 
@@ -52,22 +51,18 @@
   overflow-y: hidden;
 
   p {
-    min-width: calc(var(--sidebar-width) - spacing.$double);
+    min-width: calc(var(--sidebar-width) - spacing.$double * 2);
+  }
+
+  h3 {
+    margin-top: 0;
   }
 }
 
 .toggle-button {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
+  display: inline-flex;
 
   $size: spacing.$triple;
-  width: $size;
-  height: $size;
-  margin: 0;
-  padding: 0;
-  border: none;
 
   position: absolute;
 
@@ -81,56 +76,5 @@
     right: calc($size * -1);
     bottom: unset;
     border-radius: 0 borders.$radius-basic borders.$radius-basic 0;
-  }
-
-  background-color: colours.$outline;
-
-  cursor: pointer;
-
-  box-sizing: content-box;
-
-  &:hover {
-    .mat-icon {
-      animation: grow-shrink-wiggle 3s linear infinite;
-
-      @keyframes grow-shrink-wiggle {
-        0% {
-          transform: rotate(0) scale(1);
-        }
-        20% {
-          transform: scale(1.2);
-        }
-        40% {
-          transform: scale(1);
-        }
-        60% {
-          transform: scale(1.2);
-        }
-        80% {
-          transform: scale(1);
-        }
-        85% {
-          transform: rotate(-30deg);
-        }
-        90% {
-          transform: rotate(30deg);
-        }
-        95% {
-          transform: rotate(-30deg);
-        }
-        100% {
-          transform: rotate(0deg);
-        }
-      }
-    }
-  }
-
-  mat-icon {
-    font-size: 1.5em;
-
-    width: fit-content;
-    height: fit-content;
-
-    color: colours.$background-primary;
   }
 }

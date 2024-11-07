@@ -1,4 +1,15 @@
-$outline: black;
-$background-primary: white;
-$background-secondary: rgb(237, 241, 243);
-$background-tertiary: silver;
+$grey-100: white;
+$grey-200: #f1f1df;
+$grey-300: #e0d3c8;
+$grey-400: #c9b0b4;
+$grey-500: #94828e;
+$grey-600: #82758a;
+$grey-700: #565663;
+$grey-800: #2c343b;
+$grey-900: #11211e;
+
+$outline: $grey-900;
+$background-primary: $grey-100;
+$background-secondary: $grey-200;
+$background-tertiary: $grey-300;
+$background-quaternary: $grey-400;
