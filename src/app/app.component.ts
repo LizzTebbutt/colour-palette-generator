@@ -88,11 +88,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.observer.unobserve(this.sidebarContainer);
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    this.setNewDiameter();
-  }
-
   updateBackgroundGradient() {
     const colours: hsvColour[] = [];
 
@@ -108,7 +103,30 @@ export class AppComponent implements OnInit, OnDestroy {
     document.documentElement.style.setProperty(`--scheme-gradient`, gradient);
   }
 
+  //#region Window Resize Logic
+  windowInnerWidth = 0;
+  bodyWidth = 0;
+  bodyClientWidth = 0;
+  bodyBorder = 0;
+  sidebarWidth = 0;
+  sidebarWhiteSpace = 0;
+  toggleButtonWidth = 0;
+  contentContainerWhitespace = 0;
+  contentWhitespace = 0;
+  wheelContainerWhitespace = 0;
+  swatchWidth = 0;
+  swatchWhitespace = 0;
+  dividerWhiteSpace = 0;
+  swatchContainerWhitespace = 0;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.setNewDiameter();
+  }
+
   private setNewDiameter() {
+    this.setWidthsFromDom();
+
     this.wheelDiameter = this.colourMathsService.clamp(
       this.getWheelSpace(),
       0,
@@ -116,91 +134,90 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getDivByClass(className: string): HTMLDivElement {
-    const element = document.getElementsByClassName(
-      className
-    )[0] as HTMLDivElement;
-
-    return element;
-  }
-
-  private getWheelSpace() {
-    const body = document.body as HTMLDivElement;
-    const bodyStyle = window.getComputedStyle(body);
-    const bodyWidth = body.offsetWidth;
-    const bodyBorder =
-      +bodyStyle.borderLeftWidth.replace('px', '') +
-      +bodyStyle.borderRightWidth.replace('px', '');
-
-    const sidebar = this.getDivByClass('sidebar-body-container');
-    const sidebarWidth = sidebar.clientWidth;
-    const sidebarWhiteSpace = this.getSumOfMarginBorderPadding(sidebar);
-
-    const toggleButton = this.getDivByClass('toggle-button');
-    const toggleButtonWidth = toggleButton.clientWidth;
-
-    const contentContainer = this.getDivByClass('content-container');
-    const contentContainerWhitespace =
-      this.getSumOfMarginBorderPadding(contentContainer);
-
-    const content = this.getDivByClass('content');
-    const contentWhitespace = this.getSumOfMarginBorderPadding(content);
-
-    const wheelContainer = this.getDivByClass('wheel-container');
-    const wheelContainerWhitespace =
-      this.getSumOfMarginBorderPadding(wheelContainer);
-
-    const divider = this.getDivByClass('divider');
-    const dividerWhiteSpace = this.getSumOfMarginBorderPadding(divider);
-
-    const swatchContainer = this.getDivByClass('swatch-container');
-    const swatchContainerWhitespace =
-      this.getSumOfMarginBorderPadding(swatchContainer);
-
-    const swatch = this.getDivByClass('swatch');
-    const swatchWidth = swatch.clientWidth;
-    const swatchWhitespace = this.getSumOfMarginBorderPadding(swatch);
-
-    if (window.innerWidth < 768) {
+  getWheelSpace(): number {
+    if (this.windowInnerWidth <= FormattingConstants.mobileMaxWidth) {
       const remainingWidth =
-        bodyWidth -
-        bodyBorder -
-        contentContainerWhitespace -
-        contentWhitespace -
-        wheelContainerWhitespace;
+        this.bodyWidth -
+        this.bodyBorder -
+        this.contentContainerWhitespace -
+        this.contentWhitespace -
+        this.wheelContainerWhitespace;
 
       return remainingWidth;
-    } else if (window.innerWidth < 1024) {
+    } else if (this.windowInnerWidth <= FormattingConstants.tabletMaxWidth) {
       const remainingWidth =
-        bodyWidth -
-        contentContainerWhitespace -
-        contentWhitespace -
-        wheelContainerWhitespace -
-        dividerWhiteSpace -
-        swatchContainerWhitespace -
-        swatchWidth -
-        swatchWhitespace;
+        this.bodyWidth -
+        this.contentContainerWhitespace -
+        this.contentWhitespace -
+        this.wheelContainerWhitespace -
+        this.dividerWhiteSpace -
+        this.swatchContainerWhitespace -
+        this.swatchWidth -
+        this.swatchWhitespace;
 
       return remainingWidth;
     } else {
       const remainingWidth =
-        body.clientWidth -
-        sidebarWidth -
-        sidebarWhiteSpace -
-        toggleButtonWidth -
-        contentContainerWhitespace -
-        contentWhitespace -
-        wheelContainerWhitespace -
-        dividerWhiteSpace -
-        swatchContainerWhitespace -
-        swatchWidth -
-        swatchWhitespace;
+        this.bodyClientWidth -
+        this.sidebarWidth -
+        this.sidebarWhiteSpace -
+        this.toggleButtonWidth -
+        this.contentContainerWhitespace -
+        this.contentWhitespace -
+        this.wheelContainerWhitespace -
+        this.dividerWhiteSpace -
+        this.swatchContainerWhitespace -
+        this.swatchWidth -
+        this.swatchWhitespace;
 
       return remainingWidth;
     }
   }
 
-  private getSumOfMarginBorderPadding(element: HTMLDivElement): number {
+  private setWidthsFromDom() {
+    this.windowInnerWidth = window.innerWidth;
+
+    const body = document.body as HTMLDivElement;
+    const bodyStyle = window.getComputedStyle(body);
+    this.bodyWidth = body.offsetWidth;
+    this.bodyClientWidth = body.clientWidth;
+    this.bodyBorder =
+      +bodyStyle.borderLeftWidth.replace('px', '') +
+      +bodyStyle.borderRightWidth.replace('px', '');
+
+    const sidebar = this.getDivByClass('sidebar-body-container');
+    this.sidebarWidth = sidebar.clientWidth;
+    this.sidebarWhiteSpace = this.getSumOfMarginBorderPaddingByClassName(
+      'sidebar-body-container'
+    );
+
+    const toggleButton = this.getDivByClass('toggle-button');
+    this.toggleButtonWidth = toggleButton.clientWidth;
+
+    this.contentContainerWhitespace =
+      this.getSumOfMarginBorderPaddingByClassName('content-container');
+
+    this.contentWhitespace =
+      this.getSumOfMarginBorderPaddingByClassName('content');
+
+    this.wheelContainerWhitespace =
+      this.getSumOfMarginBorderPaddingByClassName('wheel-container');
+
+    this.dividerWhiteSpace =
+      this.getSumOfMarginBorderPaddingByClassName('divider');
+
+    this.swatchContainerWhitespace =
+      this.getSumOfMarginBorderPaddingByClassName('swatch-container');
+
+    const swatch = this.getDivByClass('swatch');
+    this.swatchWidth = swatch.clientWidth;
+    this.swatchWhitespace =
+      this.getSumOfMarginBorderPaddingByClassName('swatch');
+  }
+
+  private getSumOfMarginBorderPaddingByClassName(className: string): number {
+    const element = this.getDivByClass(className);
+
     const elementStyle = window.getComputedStyle(element);
 
     const marginLeft = +elementStyle.marginLeft.replace('px', '');
@@ -219,4 +236,13 @@ export class AppComponent implements OnInit, OnDestroy {
       paddingRight
     );
   }
+
+  private getDivByClass(className: string): HTMLDivElement {
+    const element = document.getElementsByClassName(
+      className
+    )[0] as HTMLDivElement;
+
+    return element;
+  }
+  //#endregion
 }
